@@ -9,10 +9,12 @@ import { WorkspaceSection } from "./workspace-section";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { UserItem } from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
+import { useChannelId } from "@/hooks/use-channel-id";
 
 export const WorkspaceSidebar = () => {
 
     const workspaceId = useWorkspaceId();
+    const channelId = useChannelId();
 
     const [_open, setOpen] = useCreateChannelModal();
 
@@ -27,7 +29,6 @@ export const WorkspaceSidebar = () => {
         </div>);
     }
 
-    console.log(workspace, member);
     if (!workspace || !member) {
         return (
             <div className="flex flex-col gap-y-2  bg-[#5E2C5F] h-full items-center justify-center">
@@ -49,10 +50,16 @@ export const WorkspaceSidebar = () => {
             <WorkspaceSection
                 label="Channels"
                 hint="New channel"
-                onNew={member.role === 'admin' ? () => setOpen(true) : () => {}}
+                onNew={member.role === "admin" ? () => setOpen(true) : () => {}}
             >
                 {channels?.map((item) => (
-                    <SidebarItem key={item._id} icon={HashIcon} label={item.name} id={item._id} />
+                    <SidebarItem 
+                    key={item._id} 
+                    icon={HashIcon} 
+                    label={item.name} 
+                    id={item._id} 
+                    variant={channelId === item._id ? 'active' : 'default'}
+                    />
                 ))}
             </WorkspaceSection>
 
