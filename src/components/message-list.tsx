@@ -43,7 +43,7 @@ export const MessageList = ({
 
     const workspaceId = useWorkspaceId();
     const { data: currentMember } = useCurrentMember({workspaceId});
-    const[ editingId, setEditingId] = useState<Id<'messages'> | null>(null);
+    const [editingId, setEditingId] = useState<Id<'messages'> | null>(null);
 
     const groupedMessages = data?.reduce(
         (groups, message) => {
