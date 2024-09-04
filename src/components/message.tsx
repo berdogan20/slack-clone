@@ -3,7 +3,6 @@ import { Doc, Id } from "../../convex/_generated/dataModel";
 import dynamic from 'next/dynamic';
 import { Hint } from "./hint";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
-import { Button } from "./ui/button";
 import { Thumbnail } from "./thumbnail";
 import { Toolbar } from "./toolbar";
 import { useUpdateMessage } from "@/features/messages/api/use-update-message";
@@ -11,10 +10,11 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useRemoveMessage } from "@/features/messages/api/use-remove-message";
 import { useConfirm } from "@/hooks/use-confirm";
-import { remove } from "../../convex/channels";
 import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
 import { Reactions } from "./reactions";
 import { usePanel } from "@/hooks/use-panel";
+import { ThreadBar } from "./thread-bar";
+import { time } from "console";
 
 const Renderer = dynamic(() => import('@/components/renderer'), { ssr: false });
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false });
@@ -41,6 +41,7 @@ interface MessageProps {
     hideThreadButton?: boolean;
     threadCount?: number;
     threadImage?: string;
+    threadName?: string;
     threadTimestamp?: number;
 }
 
@@ -65,6 +66,7 @@ export const Message = ({
     hideThreadButton,
     threadCount,
     threadImage,
+    threadName,
     threadTimestamp
 }: MessageProps) => {
 
@@ -166,6 +168,13 @@ export const Message = ({
                                 data={reactions}
                                 onChange={handleReaction}
                             />
+                            <ThreadBar
+                                count={threadCount}
+                                image={threadImage}
+                                name={threadName}
+                                timestamp={threadTimestamp}
+                                onClick={() => onOpenMessage(id)}
+                            />
                         </div>
                     )}
                 </div>
@@ -237,6 +246,14 @@ export const Message = ({
                         <Reactions 
                             data={reactions}
                             onChange={handleReaction}
+                        />
+                        
+                        <ThreadBar
+                            count={threadCount}
+                            image={threadImage}
+                            name={threadName}
+                            timestamp={threadTimestamp}
+                            onClick={() => onOpenMessage(id)}
                         />
                     </div>
                 }

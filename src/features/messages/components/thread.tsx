@@ -180,7 +180,6 @@ export const Thread = ({messageId, onClose}: ThreadProps) => {
                         </span>
                     </div>
                     {messages.map((message, index) => {
-
                         const previousMessage = messages[index - 1];
                         const isCompact = 
                             previousMessage &&
@@ -189,7 +188,6 @@ export const Thread = ({messageId, onClose}: ThreadProps) => {
                                 new Date(message._creationTime),
                                 new Date(previousMessage._creationTime),
                             ) < TIME_THRESHOLD;
-
                         return (
                             <Message
                                 key={message._id}
@@ -209,9 +207,11 @@ export const Thread = ({messageId, onClose}: ThreadProps) => {
                                 hideThreadButton
                                 threadCount={message.threadCount}
                                 threadImage={message.threadImage}
+                                threadName={message.threadName}
                                 threadTimestamp={message.threadTimestamp}
                             />
                         )
+
                         })}
                 </div>    
             ))}
