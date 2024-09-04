@@ -10,11 +10,13 @@ import { useGetMembers } from "@/features/members/api/use-get-members";
 import { UserItem } from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
 import { useChannelId } from "@/hooks/use-channel-id";
+import { useMemberId } from "@/hooks/use-member-id";
 
 export const WorkspaceSidebar = () => {
 
     const workspaceId = useWorkspaceId();
     const channelId = useChannelId();
+    const memberId = useMemberId();
 
     const [_open, setOpen] = useCreateChannelModal();
 
@@ -63,9 +65,16 @@ export const WorkspaceSidebar = () => {
                 ))}
             </WorkspaceSection>
 
-            <WorkspaceSection label="Direct messages" hint="New direct message" onNew={() => {}}>
+            <WorkspaceSection 
+            label="Direct messages" hint="New direct message" onNew={() => {}}>
                 {members?.map((item) => (
-                    <UserItem key={item._id} id={member._id} label={item.user.name} image={item.user.image} />
+                    <UserItem 
+                    key={item._id} 
+                    id={item._id} 
+                    label={item.user.name} 
+                    image={item.user.image} 
+                    variant={item._id === memberId ? 'active' : 'default'}
+                />
                 ))}
             </WorkspaceSection>
         </div>

@@ -43,6 +43,7 @@ export const UserItem = ({
         variant='transparent' 
         className={cn(userItemVariants({variant: variant}))}
         size='sm'
+        // onClick={() => {console.log('member_id:', id)}}
         asChild
         >
             <Link href={`/workspace/${workspaceId}/member/${id}`}>
