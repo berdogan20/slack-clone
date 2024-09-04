@@ -57,19 +57,18 @@ export const Toolbar = () => {
                             <CommandEmpty> No results found.</CommandEmpty>
                             <CommandGroup heading="Channels">
                                 {channels?.map((channel) => (
-                                    <CommandItem onSelect={() => onChannelClick(channel._id)}>
-                                            {channel.name}
+                                    <CommandItem key={channel._id} onSelect={() => onChannelClick(channel._id)}>
+                                        {channel.name}
                                     </CommandItem>
                                 ))}
-                                                       
                             </CommandGroup>
                             <CommandSeparator />
                             <CommandGroup heading="Members">
-                            {members?.map((member) => (
-                                    <CommandItem onSelect={() => onMemberClick(member._id)}>
-                                            {member.user.name}
+                                {members?.map((member) => (
+                                    <CommandItem key={member._id} onSelect={() => onMemberClick(member._id)}>
+                                        {member.user.name}
                                     </CommandItem>
-                                ))}                         
+                                ))}
                             </CommandGroup>
                         </CommandList>
                     </CommandDialog>
